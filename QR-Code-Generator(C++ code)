@@ -1,0 +1,20 @@
+#include <iostream>
+#include "qrcodegen.h"
+
+int main() {
+    // Get user input
+    std::string inputText;
+    std::cout << "Enter text or URL: ";
+    std::getline(std::cin, inputText);
+
+    // Create QR Code
+    const int8_t *text = reinterpret_cast<const int8_t *>(inputText.c_str());
+    QrCode qr = QrCode::encodeText(text, QrCode::Ecc::LOW);
+
+    // Output QR Code
+    const int scale = 4; // Adjust scale as needed
+    const int border = 4; // Adjust border as needed
+    std::cout << qr.toSvgString(border) << std::endl;
+
+    return 0;
+}
